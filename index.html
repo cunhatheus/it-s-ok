@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live HTML/CSS Editor</title>
+  <style>
+    /* Styling for the editor layout */
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    .editor-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      height: 90vh;
+    }
+
+    .editor-box {
+      border: 2px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 45%;
+      padding: 10px;
+      font-family: 'Courier New', monospace;
+      background: #f0f0f0;
+      border: none;
+      resize: none;
+    }
+
+    #preview {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="editor-container">
+    <!-- HTML/CSS Input -->
+    <div class="editor-box">
+      <h3>HTML</h3>
+      <textarea id="htmlCode">
+        <h1>It's OK to be Withe</h1>
+        <h1>It's OK to be Arab</h1>
+        <h1>It's OK to be Chinese</h1>
+        <h1>Its OK to be Slav</h1>
+        <h1>It's OK to be "Latino"</h1>
+        <h1>It's OK to be Indian</h1>
+        <h1>It's OK to be Black</h1>
+      </textarea>
+      <h3>CSS</h3>
+      <textarea id="cssCode">
+        h1:nth-of-type(1) {
+          background-color: #faebd7
+        }
+        h1:nth-of-type(2) {
+          background-color: #ded887
+        }
+        h1:nth-of-type(3) {
+          background-color: #ff0000
+        }
+        h1:nth-of-type(4) {
+          background-color: #7fffd4
+        }
+        h1:nth-of-type(5) {
+          background-color: #ffa07a
+        }
+        h1:nth-of-type(6) {
+          background-color: #a52a2a
+        }
+        h1:nth-of-type(7) {
+          background-color: #060606
+        }
+      </textarea>
+    </div>
+
+    <!-- Live Preview -->
+    <div class="editor-box">
+      <h3>Preview</h3>
+      <iframe id="preview"></iframe>
+    </div>
+  </div>
+
+  <script>
+    // Get HTML/CSS input elements
+    const htmlCode = document.getElementById('htmlCode');
+    const cssCode = document.getElementById('cssCode');
+    const preview = document.getElementById('preview');
+
+    // Update preview in real time
+    function updatePreview() {
+      const html = htmlCode.value;
+      const css = `<style>${cssCode.value}</style>`;
+      const combinedCode = css + html;
+
+      // Write the code to the iframe
+      preview.contentDocument.open();
+      preview.contentDocument.write(combinedCode);
+      preview.contentDocument.close();
+    }
+
+    // Listen for input changes
+    htmlCode.addEventListener('input', updatePreview);
+    cssCode.addEventListener('input', updatePreview);
+
+    // Initialize with default content
+    updatePreview();
+  </script>
+</body>
+
+</html>
